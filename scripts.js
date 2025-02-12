@@ -2,13 +2,14 @@ let navbar = document.querySelector(".navbar");
 let menuList = document.querySelector(".menu-list");
 let menuListFocused = false;
 
-window.addEventListener("wheel", e => {
-    const scrolledUp = e.deltaY < 0 ? true : false;
-    if (scrolledUp) {
+let lastScroll = 0;
+window.addEventListener("scroll", e => {
+    if (window.scrollY < lastScroll) {
         navbar.classList.remove("floating");
     } else {
         navbar.classList.add("floating")
     }
+    lastScroll = window.scrollY;
 });
 
 
@@ -16,6 +17,7 @@ let currentDistance = 0;
 let startX = 0;
 let items = document.querySelectorAll(".menu-item");
 let maxX = items[0]?.clientWidth * items.length / 2;
+
 menuList.addEventListener("touchstart", (e) => {
     startX = e.touches[0].clientX;
 });
@@ -26,13 +28,7 @@ menuList.addEventListener("touchend", () => {
 
 menuList.addEventListener("touchmove", (e) => {
     let x = e.touches[0].clientX;
-    currentDistance -= startX - x;
-    if (currentDistance <= 0)
-        currentDistance = 0;
-    else if (currentDistance > maxX)
-        currentDistance = maxX;
-    menuList.style.transform = `translateX(${currentDistance}px)`;
-    startX = x;
+    moveMenu(x);
 });
 
 let mouseDown = false;
@@ -49,15 +45,18 @@ menuList.addEventListener("mouseup", () => {
 menuList.addEventListener("mousemove", (e) => {
     if (!mouseDown)
         return;
-    let x = e.clientX;
-    currentDistance -= startX - x;
+    moveMenu(e.clientX);
+});
+
+function moveMenu(newX) {
+    currentDistance -= startX - newX;
     if (currentDistance <= 0)
         currentDistance = 0;
     else if (currentDistance > maxX)
         currentDistance = maxX;
     menuList.style.transform = `translateX(${currentDistance}px)`;
-    startX = x;
-});
+    startX = newX;
+}
 
 
 function openModal() {
