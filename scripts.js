@@ -1,5 +1,7 @@
+let container = document.querySelector(".container");
 let navbar = document.querySelector(".navbar");
 let menuList = document.querySelector(".menu-list");
+let rail = document.querySelector(".rail");
 let menuListFocused = false;
 
 let lastScroll = 0;
@@ -15,9 +17,8 @@ window.addEventListener("scroll", e => {
 
 let currentDistance = 0;
 let startX = 0;
-let items = document.querySelectorAll(".menu-item");
-let maxX = items[0]?.clientWidth * items.length / 2;
-
+let maxX = rail.getBoundingClientRect().width - container.getBoundingClientRect().width;
+console.log(maxX);
 menuList.addEventListener("touchstart", (e) => {
     startX = e.touches[0].clientX;
 });
@@ -42,9 +43,11 @@ menuList.addEventListener("mouseup", () => {
     mouseDown = false;
 });
 
+let mouseSwipe = false;
 menuList.addEventListener("mousemove", (e) => {
     if (!mouseDown)
         return;
+    mouseSwipe = true;
     moveMenu(e.clientX);
 });
 
@@ -60,6 +63,10 @@ function moveMenu(newX) {
 
 
 function openModal() {
+    if (mouseSwipe) {
+        mouseSwipe = false;
+        return;
+    }
     document.querySelector(".modal").classList.add("show");
 }
 

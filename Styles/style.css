@@ -31,7 +31,7 @@ body {
     font-family: vazir;
     direction: rtl;
     text-align: right;
-    background: #f1f1f1;
+    background: #F6F5F8;
 }
 
 .f-nastaliq {
@@ -57,8 +57,6 @@ body {
 }
 
 .navbar.floating {
-    width: 100vw;
-    left: 0;
     bottom: 0;
     border-radius: 5px 5px 0 0;
     height: 3rem;
@@ -168,7 +166,7 @@ body {
 
 .search-box .input {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     margin-top: .6rem;
 }
 
@@ -193,15 +191,22 @@ body {
 }
 
 .menu-categories {
+    margin-top: 1rem;
     width: 100%;
-    height: auto;
-    overflow: hidden;
+    height: 20vh;
+    display: flex;
+    align-items: center;
+    overflow-x: hidden;
+    overflow-y: visible;
 }
 
 .menu-list {
     width: 10000px;
+}
+
+.rail {
     display: flex;
-    z-index: 99999;
+    width: fit-content;
 }
 
 .menu-item {
@@ -216,10 +221,50 @@ body {
     align-items: center;
     background-color: white;
     padding-block: .3rem;  
-    border: 1px solid #ccc;
     margin-bottom: .5rem;
+    box-shadow: 1px 0px 10px 0px #dbdbdb
+}
+
+.menu-item.active {
+    transform: translateY(-10px);
 }
 
 .menu-item.active {
     background: #ccc;
+}
+
+.items-list { 
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    column-gap: .4rem;
+}
+
+.items-list .item {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    row-gap: .4rem;
+    background: white;
+    padding-left: 10px;
+    border-radius: 30px;
+    overflow: hidden;
+    margin-bottom: .7rem;
+}
+
+.items-list .item img {
+    width: 20%;
+    height: 80px;
+}
+
+button {
+    width: auto;
+    height: 45px;
+    border-radius: 30px;
+    padding: 10px;
+    border: none;
+    background-color: #64B5F6;
+    color: white;
 }
